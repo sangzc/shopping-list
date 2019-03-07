@@ -21,8 +21,8 @@ router.post("/", function(req, res, next) {
         let name = req.body.name;
         let price = req.body.price;
         let newItem = {name, price};
-        items.append(newItem);
-        return res.json(newItem)
+        items.push(newItem);
+        return res.json(newItem);
       } catch(err) {
         next(err)
     }
@@ -30,10 +30,11 @@ router.post("/", function(req, res, next) {
 
 /** DELETE /users/[id]: delete user, return status */
 
-router.get("/", function(req, res, next) {
+router.get("/:name", function(req, res, next) {
     try {
-
-      return res.json();
+      let name = req.params.name;
+      let foundItem = items.find(item => item.name === name);
+      return res.json(foundItem);
     } catch(err) {
         next(err)
     }
